@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lectura Crítica PreICFES | THEPAPU</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    /* Estilos base igual que matemáticas */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: url(INICIO.jpg) no-repeat;
+      background-size: cover;
+      background-position: center;
+      padding: 20px;
+    }
+    .wrapper {
+      width: 100%;
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(25px);
+      color: #fff;
+      border-radius: 25px;
+      padding: 40px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .header::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #2196F3, #0D47A1);
+      margin: 15px auto;
+      border-radius: 2px;
+    }
+    .subject-title {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #fff, #e0e0e0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+    .subject-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      color: #2196F3;
+    }
+    .back-btn {
+      position: absolute;
+      left: 0;
+      top: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(-3px);
+    }
+    .materials-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .material-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+      transition: all 0.3s;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .material-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    .material-icon {
+      font-size: 2rem;
+      color: #2196F3;
+      margin-bottom: 15px;
+    }
+    .material-title {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .material-desc {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 15px;
+    }
+    .download-btn {
+      background: linear-gradient(135deg, #2196F3, #0D47A1);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      padding: 8px 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+    }
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+    }
+    .section-title {
+      font-size: 1.5rem;
+      margin: 30px 0 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    @media (max-width: 768px) {
+      .wrapper {
+        padding: 30px 20px;
+      }
+      .subject-title {
+        font-size: 2rem;
+      }
+      .materials-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <button class="back-btn" onclick="window.location.href='bienvenida.html'">
+        <i class='bx bx-arrow-back'></i>
+      </button>
+      <i class='bx bx-book-open subject-icon'></i>
+      <h1 class="subject-title">Lectura Crítica</h1>
+      <p>Desarrolla tus habilidades de análisis textual</p>
+    </div>
+
+    <h3 class="section-title">Pruebas Prácticas</h3>
+    <div class="materials-container">
+      <div class="material-card">
+        <i class='bx bx-time-five material-icon'></i>
+        <h3 class="material-title">Simulacro 1</h3>
+        <p class="material-desc">Texto narrativo con preguntas</p>
+        <button class="download-btn" onclick="downloadMaterial('LECTURA1')">
+          <i class='bx bx-download'></i> Descargar
+        </button>
+      </div>
+      
+      <div class="material-card">
+        <i class='bx bx-time-five material-icon'></i>
+        <h3 class="material-title">Simulacro 2</h3>
+        <p class="material-desc">Texto informativo con preguntas</p>
+        <button class="download-btn" onclick="downloadMaterial('LECTURA2')">
+          <i class='bx bx-download'></i> Descargar
+        </button>
+      </div>
+      
+      <div class="material-card">
+        <i class='bx bx-time-five material-icon'></i>
+        <h3 class="material-title">Simulacro 3</h3>
+        <p class="material-desc">Texto argumentativo con preguntas</p>
+        <button class="download-btn" onclick="downloadMaterial('LECTURA3')">
+          <i class='bx bx-download'></i> Descargar
+        </button>
+      </div>
+
+      <div class="material-card">
+        <i class='bx bx-time-five material-icon'></i>
+        <h3 class="material-title">Simulacro 4</h3>
+        <p class="material-desc">Texto filosófico con preguntas</p>
+        <button class="download-btn" onclick="downloadMaterial('LECTURA4')">
+          <i class='bx bx-download'></i> Descargar
+        </button>
+      </div>
+
+      <div class="material-card">
+        <i class='bx bx-time-five material-icon'></i>
+        <h3 class="material-title">Simulacro 5</h3>
+        <p class="material-desc">Texto científico con preguntas</p>
+        <button class="download-btn" onclick="downloadMaterial('LECTURA5')">
+          <i class='bx bx-download'></i> Descargar
+        </button>
+      </div>
+
+      <div class="material-card">
+        <i class='bx bx-time-five material-icon'></i>
+        <h3 class="material-title">Simulacro 6</h3>
+        <p class="material-desc">Texto literario con preguntas</p>
+        <button class="download-btn" onclick="downloadMaterial('LECTURA6')">
+          <i class='bx bx-download'></i> Descargar
+        </button>
+      </div>
+
+      <div class="material-card">
+        <i class='bx bx-time-five material-icon'></i>
+        <h3 class="material-title">Simulacro 7</h3>
+        <p class="material-desc">Prueba completa de lectura crítica</p>
+        <button class="download-btn" onclick="downloadMaterial('LECTURA7')">
+          <i class='bx bx-download'></i> Descargar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function downloadMaterial(materialId) {
+      const materials = {
+        'lec-simulacro1': 'LECTURA1.pdf',
+        'lec-simulacro2': 'LECTURA2.pdf',
+        'lec-simulacro3': 'LECTURA3.pdf',
+        'lec-simulacro4': 'LECTURA4.pdf',
+        'lec-simulacro5': 'LECTURA5.pdf',
+        'lec-simulacro6': 'LECTURA6.pdf',
+        'lec-simulacro7': 'LECTURA7.pdf'
+      };
+      
+      if (materials[materialId]) {
+        // Crear un enlace temporal para la descarga
+        const link = document.createElement('a');
+        link.href = materials[materialId];
+        link.download = materials[materialId];
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        alert('El material solicitado no está disponible.');
+      }
+    }
+  </script>
+</body>
+</html>
