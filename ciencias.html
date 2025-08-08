@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ciencias Naturales PreICFES | THEPAPU</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: url(INICIO.jpg) no-repeat;
+      background-size: cover;
+      background-position: center;
+      padding: 20px;
+    }
+    .wrapper {
+      width: 100%;
+      max-width: 1000px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(25px);
+      color: #fff;
+      border-radius: 25px;
+      padding: 40px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .header::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #FF9800, #F57C00);
+      margin: 15px auto;
+      border-radius: 2px;
+    }
+    .subject-title {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #fff, #e0e0e0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+    .subject-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      color: #FF9800;
+    }
+    .back-btn {
+      position: absolute;
+      left: 0;
+      top: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(-3px);
+    }
+    .materials-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .material-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+      transition: all 0.3s;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .material-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    .material-icon {
+      font-size: 2rem;
+      color: #FF9800;
+      margin-bottom: 15px;
+    }
+    .material-title {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .material-desc {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 15px;
+    }
+    .download-btn {
+      background: linear-gradient(135deg, #FF9800, #F57C00);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      padding: 8px 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+    }
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4);
+    }
+    .section-title {
+      font-size: 1.5rem;
+      margin: 30px 0 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .simulacro-badge {
+      background: rgba(255, 215, 0, 0.2);
+      color: gold;
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      display: inline-block;
+      margin-left: 5px;
+    }
+    @media (max-width: 768px) {
+      .wrapper {
+        padding: 30px 20px;
+      }
+      .subject-title {
+        font-size: 2rem;
+      }
+      .materials-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <button class="back-btn" onclick="window.location.href='bienvenida.html'">
+        <i class='bx bx-arrow-back'></i>
+      </button>
+      <i class='bx bx-atom subject-icon'></i>
+      <h1 class="subject-title">Ciencias Naturales</h1>
+      <p>Explora el mundo de la biología, química y física</p>
+    </div>
+
+    <h3 class="section-title">Biología</h3>
+    <div class="materials-container">
+      <div class="material-card">
+        <i class='bx bx-dna material-icon'></i>
+        <h3 class="material-title">Simulacro 1</h3>
+        <p class="material-desc">Material de apoyo</p>
+        <button class="download-btn" onclick="downloadPDF('Ciencias Naturales I.pdf')">
+          <i class='bx bx-download'></i> Descargar
+        </button>
+      </div>
+      
+      <div class="material-card">
+        <i class='bx bx-leaf material-icon'></i>
+        <h3 class="material-title">Simulacro 2</h3>
+        <p class="material-desc">Material de apoyo</p>
+        <button class="download-btn" onclick="downloadPDF('Ciencias Naturales II.pdf')">
+          <i class='bx bx-download'></i> Descargar
+        </button>
+      </div>
+      
+      <div class="material-card">
+        <i class='bx bx-body material-icon'></i>
+        <h3 class="material-title">Simulacro 3</h3>
+        <p class="material-desc">Material de apoyo</p>
+        <button class="download-btn" onclick="downloadPDF('Ciencias Naturales III.pdf')">
+          <i class='bx bx-download'></i> Descargar
+        </button>
+      </div>
+    </div>
+
+    <h3 class="section-title">Química</h3>
+    <div class="materials-container">
+      <div class="material-card">
+        <i class='bx bx-test-tube material-icon'></i>
+        <h3 class="material-title">Simulacro 4</h3>
+        <p class="material-desc">Material de apoyo</p>
+        <button class="download-btn" onclick="downloadPDF('Ciencias Naturales IV.pdf')">
+          <i class='bx bx-download'></i> Descargar
+        </button>
+      </div>
+      
+      <div class="material-card">
+        <i class='bx bx-atom material-icon'></i>
+        <h3 class="material-title">Simulacro 5</h3>
+        <p class="material-desc">Material de apoyo</p>
+        <button class="download-btn" onclick="downloadPDF('Ciencias Naturales V.pdf')">
+          <i class='bx bx-download'></i> Descargar
+        </button>
+      </div>
+    </div>
+
+    <h3 class="section-title">Física</h3>
+    <div class="materials-container">
+      <div class="material-card">
+        <i class='bx bx-run material-icon'></i>
+        <h3 class="material-title">Simulacro 6</h3>
+        <p class="material-desc">Material de apoyo</p>
+        <button class="download-btn" onclick="downloadPDF('Ciencias Naturales VI.pdf')">
+          <i class='bx bx-download'></i> Descargar
+        </button>
+      </div>
+      
+      <div class="material-card">
+        <i class='bx bx-bolt-circle material-icon'></i>
+        <h3 class="material-title">Simulacro 7 </h3>
+        <p class="material-desc">Material de apoyo</p>
+        <button class="download-btn" onclick="downloadPDF('Ciencias Naturales VII.pdf')">
+          <i class='bx bx-download'></i> Descargar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function downloadPDF(pdfName) {
+      // Ruta base donde están almacenados los PDFs
+      const basePath = 'pdf/';
+      
+      // Crear enlace temporal
+      const link = document.createElement('a');
+      link.href = basePath + pdfName;
+      link.download = pdfName;
+      
+      // Configurar para abrir en nueva pestaña si falla la descarga
+      link.target = '_blank';
+      
+      // Manejo de errores
+      link.onerror = function() {
+        alert('Error al cargar el archivo. Por favor intente más tarde.');
+      };
+      
+      // Simular clic
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Opcional: registro en consola
+      console.log(`Descargando: ${basePath}${pdfName}`);
+    }
+
+    // Versión alternativa para servidores (descomenta si es necesario)
+    /*
+    function downloadPDF(pdfName) {
+      fetch(`pdf/${pdfName}`)
+        .then(response => {
+          if (!response.ok) throw new Error('Archivo no encontrado');
+          return response.blob();
+        })
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = pdfName;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('No se pudo descargar el archivo: ' + error.message);
+        });
+    }
+    */
+  </script>
+</body>
+</html>
