@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IOVF | THEPAPU</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <!-- Incluir SDK de Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: url(INICIO.jpg) no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+    .wrapper {
+      width: 420px;
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, .2);
+      backdrop-filter: blur(20px);
+      color: #fff;
+      border-radius: 12px;
+      padding: 30px 40px;
+      transition: all 0.3s ease;
+    }
+    .wrapper h1 {
+      font-size: 36px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .input-box {
+      position: relative;
+      width: 100%;
+      height: 50px;
+      margin: 30px 0;
+    }
+    .input-box input {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      border: 2px solid rgba(255, 255, 255, .2);
+      border-radius: 40px;
+      font-size: 16px;
+      color: #fff;
+      padding: 20px 45px 20px 20px;
+    }
+    .input-box input::placeholder {
+      color: #fff;
+    }
+    .input-box i {
+      position: absolute;
+      right: 20px;
+      top: 30%;
+      transform: translate(-50%);
+      font-size: 20px;
+    }
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14.5px;
+      margin: -15px 0 15px;
+    }
+    .remember-forgot label input {
+      accent-color: #fff;
+      margin-right: 3px;
+    }
+    .remember-forgot a {
+      color: #fff;
+      text-decoration: none;
+    }
+    .remember-forgot a:hover {
+      text-decoration: underline;
+    }
+    .btn {
+      width: 100%;
+      height: 45px;
+      background: #fff;
+      border: none;
+      outline: none;
+      border-radius: 40px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+      cursor: pointer;
+      font-size: 16px;
+      color: #333;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .btn:hover {
+      background: #f0f0f0;
+    }
+    .register-link {
+      font-size: 14.5px;
+      text-align: center;
+      margin: 20px 0 15px;
+    }
+    .register-link p a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .register-link p a:hover {
+      text-decoration: underline;
+    }
+    .hidden {
+      display: none;
+    }
+    .success-message {
+      color: #4CAF50;
+      text-align: center;
+      margin-top: 15px;
+      font-weight: 600;
+      display: none;
+    }
+    .error-message {
+      color: #ff6b6b;
+      text-align: center;
+      margin-top: 15px;
+      font-weight: 600;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper" id="loginWrapper">
+    <form id="loginForm">
+      <h1>Login</h1>
+      <div class="error-message" id="loginError">Usuario o contraseña incorrectos</div>
+      <div class="success-message" id="loginSuccess">Inicio de sesión exitoso! Redirigiendo...</div>
+      <div class="input-box">
+        <input type="email" id="loginEmail" placeholder="Email" required>
+        <i class='bx bxs-envelope'></i>
+      </div>
+      <div class="input-box">
+        <input type="password" id="loginPassword" placeholder="Password" required>
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+      <div class="remember-forgot">
+        <label><input type="checkbox" id="rememberMe">Remember Me</label>
+        <a href="#" id="showForgot">Forgot Password?</a>
+      </div>
+      <button type="submit" class="btn">Login</button>
+      <div class="register-link">
+        <p>Don't have an account? <a href="#" id="showRegister">Register</a></p>
+      </div>
+    </form>
+  </div>
+
+  <!-- Formulario de Registro -->
+  <div class="wrapper hidden" id="registerWrapper">
+    <form id="registerForm">
+      <h1>Register</h1>
+      <div class="error-message" id="regError"></div>
+      <div class="success-message" id="regSuccess"></div>
+      <div class="input-box">
+        <input type="text" id="regUsername" placeholder="Username" required>
+        <i class='bx bxs-user'></i>
+      </div>
+      <div class="input-box">
+        <input type="email" id="regEmail" placeholder="Email" required>
+        <i class='bx bxs-envelope'></i>
+      </div>
+      <div class="input-box">
+        <input type="password" id="regPassword" placeholder="Password" required>
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+      <div class="input-box">
+        <input type="password" id="regConfirmPassword" placeholder="Confirm Password" required>
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+      <button type="submit" class="btn">Register</button>
+      <div class="register-link">
+        <p>Already have an account? <a href="#" id="showLoginFromReg">Login</a></p>
+      </div>
+    </form>
+  </div>
+
+  <!-- Formulario de Recuperación -->
+  <div class="wrapper hidden" id="forgotWrapper">
+    <form id="forgotForm">
+      <h1>Reset Password</h1>
+      <div class="error-message" id="forgotError"></div>
+      <div class="success-message" id="forgotSuccess"></div>
+      <div class="input-box">
+        <input type="email" id="forgotEmail" placeholder="Your Email" required>
+        <i class='bx bxs-envelope'></i>
+      </div>
+      <button type="submit" class="btn">Send Reset Link</button>
+      <div class="register-link">
+        <p>Remember your password? <a href="#" id="showLoginFromForgot">Login</a></p>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Configuración de Supabase
+    const supabaseUrl = 'TU_URL_SUPABASE'; // Reemplaza con tu URL de Supabase
+    const supabaseKey = 'TU_CLAVE_PUBLICA_SUPABASE'; // Reemplaza con tu clave pública
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    // Elementos del DOM
+    const loginWrapper = document.getElementById('loginWrapper');
+    const registerWrapper = document.getElementById('registerWrapper');
+    const forgotWrapper = document.getElementById('forgotWrapper');
+    
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const forgotForm = document.getElementById('forgotForm');
+    
+    const showRegister = document.getElementById('showRegister');
+    const showLoginFromReg = document.getElementById('showLoginFromReg');
+    const showForgot = document.getElementById('showForgot');
+    const showLoginFromForgot = document.getElementById('showLoginFromForgot');
+
+    // Mostrar formulario de registro
+    showRegister.addEventListener('click', function(e) {
+      e.preventDefault();
+      hideAllMessages();
+      loginWrapper.classList.add('hidden');
+      forgotWrapper.classList.add('hidden');
+      registerWrapper.classList.remove('hidden');
+    });
+    
+    // Mostrar formulario de login desde registro
+    showLoginFromReg.addEventListener('click', function(e) {
+      e.preventDefault();
+      hideAllMessages();
+      registerWrapper.classList.add('hidden');
+      loginWrapper.classList.remove('hidden');
+    });
+    
+    // Mostrar formulario de recuperación
+    showForgot.addEventListener('click', function(e) {
+      e.preventDefault();
+      hideAllMessages();
+      loginWrapper.classList.add('hidden');
+      registerWrapper.classList.add('hidden');
+      forgotWrapper.classList.remove('hidden');
+    });
+    
+    // Mostrar formulario de login desde recuperación
+    showLoginFromForgot.addEventListener('click', function(e) {
+      e.preventDefault();
+      hideAllMessages();
+      forgotWrapper.classList.add('hidden');
+      loginWrapper.classList.remove('hidden');
+    });
+    
+    // Función para ocultar todos los mensajes
+    function hideAllMessages() {
+      document.querySelectorAll('.error-message, .success-message').forEach(el => {
+        el.style.display = 'none';
+      });
+    }
+    
+    // Procesar registro
+    registerForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      hideAllMessages();
+      
+      const username = document.getElementById('regUsername').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const confirmPassword = document.getElementById('regConfirmPassword').value;
+      const errorElement = document.getElementById('regError');
+      const successElement = document.getElementById('regSuccess');
+      
+      // Validaciones
+      if (password !== confirmPassword) {
+        errorElement.textContent = "Las contraseñas no coinciden.";
+        errorElement.style.display = 'block';
+        return;
+      }
+      
+      if (password.length < 6) {
+        errorElement.textContent = "La contraseña debe tener al menos 6 caracteres.";
+        errorElement.style.display = 'block';
+        return;
+      }
+      
+      try {
+        // Registrar usuario en Supabase Auth
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              username: username
+            }
+          }
+        });
+        
+        if (error) throw error;
+        
+        // Guardar información adicional en la tabla profiles
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert([
+            { 
+              id: data.user.id, 
+              username: username,
+              email: email
+            }
+          ]);
+        
+        if (profileError) throw profileError;
+        
+        // Mostrar mensaje de éxito
+        successElement.textContent = '¡Registro exitoso! Por favor verifica tu email.';
+        successElement.style.display = 'block';
+        
+        // Limpiar formulario
+        registerForm.reset();
+        
+        // Redirigir al login después de 2 segundos
+        setTimeout(() => {
+          registerWrapper.classList.add('hidden');
+          loginWrapper.classList.remove('hidden');
+          successElement.style.display = 'none';
+        }, 2000);
+      } catch (error) {
+        console.error('Error en registro:', error.message);
+        errorElement.textContent = error.message;
+        errorElement.style.display = 'block';
+      }
+    });
+    
+    // Procesar login
+    loginForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      hideAllMessages();
+      
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const rememberMe = document.getElementById('rememberMe').checked;
+      const errorElement = document.getElementById('loginError');
+      const successElement = document.getElementById('loginSuccess');
+      
+      try {
+        // Iniciar sesión con Supabase
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+        
+        if (error) throw error;
+        
+        // Login exitoso
+        successElement.style.display = 'block';
+        
+        if (rememberMe) {
+          localStorage.setItem('rememberedUser', email);
+        } else {
+          localStorage.removeItem('rememberedUser');
+        }
+        
+        // Obtener información del perfil del usuario
+        const { data: userData, error: userError } = await supabase
+          .from('profiles')
+          .select('username')
+          .eq('id', data.user.id)
+          .single();
+        
+        if (userError) throw userError;
+        
+        // Redirigir a la página de bienvenida
+        setTimeout(() => {
+          window.location.href = 'bienvenida.html?user=' + encodeURIComponent(userData.username);
+        }, 1000);
+      } catch (error) {
+        console.error('Error en login:', error.message);
+        errorElement.textContent = error.message;
+        errorElement.style.display = 'block';
+      }
+    });
+    
+    // Procesar recuperación de contraseña
+    forgotForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      hideAllMessages();
+      
+      const email = document.getElementById('forgotEmail').value.trim();
+      const errorElement = document.getElementById('forgotError');
+      const successElement = document.getElementById('forgotSuccess');
+      
+      try {
+        // Enviar enlace de recuperación
+        const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: window.location.origin + '/actualizar-contrasena.html'
+        });
+        
+        if (error) throw error;
+        
+        // Mostrar mensaje de éxito
+        successElement.textContent = 'Se ha enviado un enlace de recuperación a tu correo electrónico.';
+        successElement.style.display = 'block';
+        forgotForm.reset();
+        
+        // Ocultar mensaje después de 3 segundos
+        setTimeout(() => {
+          forgotWrapper.classList.add('hidden');
+          loginWrapper.classList.remove('hidden');
+          successElement.style.display = 'none';
+        }, 3000);
+      } catch (error) {
+        console.error('Error en recuperación:', error.message);
+        errorElement.textContent = error.message;
+        errorElement.style.display = 'block';
+      }
+    });
+    
+    // Recordar usuario si marcó "Remember me" antes
+    window.addEventListener('DOMContentLoaded', function() {
+      const rememberedUser = localStorage.getItem('rememberedUser');
+      if (rememberedUser) {
+        document.getElementById('loginEmail').value = rememberedUser;
+        document.getElementById('rememberMe').checked = true;
+      }
+    });
+  </script>
+</body>
+</html>
